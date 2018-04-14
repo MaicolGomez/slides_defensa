@@ -1,0 +1,10 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Introduction}{3}{0}{1}
+\beamer@sectionintoc {2}{The Algorithm}{7}{0}{2}
+\beamer@sectionintoc {3}{Scan Clause in AClang}{24}{0}{3}
+\beamer@subsectionintoc {3}{1}{Implementation of Scan in AClang}{28}{0}{3}
+\beamer@subsectionintoc {3}{2}{The Template}{30}{0}{3}
+\beamer@sectionintoc {4}{Using the Scan Operator}{35}{0}{4}
+\beamer@sectionintoc {5}{Experimental Evaluation}{50}{0}{5}
+\beamer@sectionintoc {6}{Conclusion and Future Works}{53}{0}{6}

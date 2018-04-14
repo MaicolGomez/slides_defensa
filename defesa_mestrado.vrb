@@ -1,0 +1,1144 @@
+
+\frame{
+	\frametitle{\textbf{DCA - Data Flow Equations}}
+
+	Given a statement of the form \textit{s: v = a op b}:
+
+
+	\begin{eqnarray}
+	\scriptsize
+	GEN[s] =  \begin{cases}
+	\{(v,\W,d),(a,\R,d),(b,\R,d)\},  \\ \nonumber
+	\hspace{2cm}\ttt{if}\  v \neq a\  \wedge  v \neq b\  & (a) \label{eq:genkill1}  \\
+	\{ (a,\RW,d), (b,\R,d) \},\ttt{if}\  v = a\  & (b)  \label{eq:genkill4} \\
+	\{ (a,\R,d), (b,\RW,d) \}, \ttt{if}\  v = b\  & (c) \label{eq:genkill5} \\
+	\end{cases} \\ \nonumber
+	KILL[s] =  A_v - GEN[s] \label{eq:genkill2} \\ \nonumber
+	A_{v} =   \{ \ttt{set of accesses to v} \} \label{eq:genkill3} \nonumber
+	\end{eqnarray}
+
+	\begin{eqnarray}
+	\small
+	OUT[B] = \biguplus_{S \in Succ[B]} IN[S]  \nonumber \\
+	IN[B] = GEN[B]\ \bigcupdot\ (OUT[B] - KILL[B]) \nonumber
+	\end{eqnarray}
+}
+
+\frame{
+	\frametitle{\textbf{Combiner Operator ($\cupdot$)}}
+
+	\begin{eqnarray}
+	\small
+	--> IN[B] = GEN[B]\ \bigcupdot\ (OUT[B] - KILL[B])  <--\nonumber
+	\end{eqnarray}
+
+\begin{eqnarray}
+S_1 \bigcupdot S_2 =  \bigcup_{\forall i,j} \{ A_i \odot A_j \}, \forall A_i \in S_1 \wedge A_j \in S_2 \label{eq:sqcup} \nonumber \\ \nonumber
+A_i \odot A_j =
+\begin{cases}
+\{A_i, A_j\},\  \ttt{if}\  v_i \neq v_j\ & (a) \\
+\{(v, t_i \odot t_j, d_i \odot d_j)\},  \ttt{otherwise}   & (b)
+\end{cases}
+\end{eqnarray}
+
+	\begin{table}[!htbp]
+		\centering
+		\tiny
+		\label{tab:insert}
+		\setlength\tabcolsep{3pt}
+		\begin{minipage}{0.49\textwidth}
+			\centering
+			\begin{tabular}{||l|l|l||}
+				\hline
+				\multicolumn{3}{||c||}{Confluence Access Types}
+				\\ \hline
+				\multicolumn{1}{||c|}{\mat{t_i}} &
+				\multicolumn{1}{|c|}{\mat{t_j}} &
+				\multicolumn{1}{|c||}{\mat{t_i} $\odot$ \mat{t_j}}
+				\\ \hline
+				R  & R  & R \\ \hline
+				R  & [W,RW]  & \begin{tabular}[c]{@{}l@{}}if (\mat{d_i} == CPU \&\& \\\mat{d_j} == GPU) R\\ else RW\end{tabular} \\ \hline
+				W & [R,RW]  & RW    \\ \hline
+				W  & W & W     \\ \hline
+				RW  & [R,W,RW] & RW   \\ \hline
+			\end{tabular}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.49\textwidth}
+			\centering
+			\begin{tabular}{||l|l|l||}
+				\hline
+				\multicolumn{3}{||c||}{Confluence Access Devices}
+				\\ \hline
+				\multicolumn{1}{||c|}{\mat{d_i}} &
+				\multicolumn{1}{|c|}{\mat{d_j}} &
+				\multicolumn{1}{|c||}{\mat{d_i} $\odot$ \mat{d_j}}
+				\\ \hline
+				CPU  & [CPU,GPU,X] & CPU \\ \hline
+				GPU & [CPU,GPU,X]  &  GPU  \\ \hline
+			\end{tabular}
+		\end{minipage}
+\end{table}
+}
+
+
+
+\frame{
+	\frametitle{\textbf{Combiner Operator ($\cupdot$)}}
+
+	\begin{eqnarray}
+	\small
+	--> IN[B] = GEN[B]\ \bigcupdot\ (OUT[B] - KILL[B])  <--\nonumber
+	\end{eqnarray}
+
+\centering
+\begin{tikzpicture}[->,>=stealth']
+\centering
+% STATE BB0
+\node[state,    	% layout (defined above)
+text width=3cm, 	% max text width
+anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+{	\tiny
+	\begin{tabular}{l}
+	\textbf{BB0:}\\ \\
+	\tiny
+	{\color{red} IN[s1] = {(A,R,CPU)}} \\
+	\tiny
+	GEN[s1] = {(A,R,CPU)}\\
+	\scriptsize
+	s1: c = A[i] + 1;\\
+	\tiny
+	OUT[s1] = {(A,R,GPU)}\\
+	\\
+
+	\tiny
+	{\color{red} IN[s2] = {(A,R,GPU)}} \\
+	\tiny
+	GEN[s2] = {(A,R,GPU)} \\
+	\scriptsize
+	s2: gpuKernel(A); \\
+	\tiny
+	OUT[s2] = \{\} \\
+	\end{tabular}
+};
+\end{tikzpicture}
+	\begin{table}[!htbp]
+		\centering
+		\tiny
+		\label{tab:insert}
+		\setlength\tabcolsep{3pt}
+		\begin{minipage}{0.49\textwidth}
+			\centering
+			\begin{tabular}{||l|l|l||}
+				\hline
+				\multicolumn{3}{||c||}{Confluence Access Types}
+				\\ \hline
+				\multicolumn{1}{||c|}{\mat{t_i}} &
+				\multicolumn{1}{|c|}{\mat{t_j}} &
+				\multicolumn{1}{|c||}{\mat{t_i} $\odot$ \mat{t_j}}
+				\\ \hline
+				R  & R  & R \\ \hline
+				R  & [W,RW]  & \begin{tabular}[c]{@{}l@{}}if (\mat{d_i} == CPU \&\& \\\mat{d_j} == GPU) R\\ else RW\end{tabular} \\ \hline
+				W & [R,RW]  & RW    \\ \hline
+				W  & W & W     \\ \hline
+				RW  & [R,W,RW] & RW   \\ \hline
+			\end{tabular}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.49\textwidth}
+			\centering
+			\begin{tabular}{||l|l|l||}
+				\hline
+				\multicolumn{3}{||c||}{Confluence Access Devices}
+				\\ \hline
+				\multicolumn{1}{||c|}{\mat{d_i}} &
+				\multicolumn{1}{|c|}{\mat{d_j}} &
+				\multicolumn{1}{|c||}{\mat{d_i} $\odot$ \mat{d_j}}
+				\\ \hline
+				CPU  & [CPU,GPU,X] & CPU \\ \hline
+				GPU & [CPU,GPU,X]  &  GPU  \\ \hline
+			\end{tabular}
+		\end{minipage}
+	\end{table}
+}
+
+
+
+\frame{
+	\frametitle{\textbf{Meet Operator ($\biguplus$)}}
+
+	\begin{eqnarray}
+	\small
+	--> OUT[B] = \biguplus_{S \in Succ[B]} IN[S] <--  \nonumber \\ \nonumber
+	\end{eqnarray}
+
+	\begin{eqnarray}
+		S_1 \biguplus S_2 =  \bigcup_{\forall i,j} \{ A_i \oplus A_j \}, \forall A_i \in S_1 \wedge A_j \in S_2 \label{eq:aplus} \nonumber\\
+		A_i \oplus A_j =
+		\begin{cases}
+		\label{eq:aplusa}
+		\{A_i, A_j\},\  \ttt{if}\  v_i \neq v_j\ & (a) \nonumber \\
+		\{(v, t_i \oplus t_j, d_i \oplus d_j)\},  \ttt{otherwise}   & (b)
+		\end{cases}
+	\end{eqnarray}
+
+	\begin{table}[!htbp]
+		\centering
+		\tiny
+		\label{tab:insert}
+		\setlength\tabcolsep{3pt}
+		\begin{minipage}{0.49\textwidth}
+			\centering
+			\begin{tabular}{||l|l|l||}
+				\hline
+				\multicolumn{3}{||c||}{Meeting Access Types}
+				\\ \hline
+				\multicolumn{1}{||c|}{\mat{t_i}} &
+				\multicolumn{1}{|c|}{\mat{t_j}} &
+				\multicolumn{1}{|c||}{\mat{t_i} $\oplus$ \mat{t_j}}
+				\\ \hline
+				R   & R    & R    \\ \hline
+				R & [W,RW] & RW \\ \hline
+				W   & W   & W    \\ \hline
+				W & RW & RW \\ \hline
+				RW   & RW   & RW  \\ \hline
+			\end{tabular}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.49\textwidth}
+			\centering
+			\begin{tabular}{||l|l|l||}
+				\hline
+				\multicolumn{3}{||c||}{Meeting Access Devices}
+				\\ \hline
+				\multicolumn{1}{||c|}{\mat{d_i}} &
+				\multicolumn{1}{|c|}{\mat{d_j}} &
+				\multicolumn{1}{c||}{\mat{d_i} $\oplus$ \mat{d_j}}
+				\\ \hline
+				CPU & CPU       & CPU   \\ \hline
+				GPU & GPU       & GPU   \\ \hline
+				GPU & [CPU,X]  & X    \\ \hline
+				CPU & [GPU,X]  & X    \\ \hline
+				X & [CPU,GPU,X]  & X    \\ \hline
+			\end{tabular}
+		\end{minipage}
+	\end{table}
+}
+
+
+\frame{
+	\frametitle{\textbf{Meet Operator ($\biguplus$)}}
+
+	\begin{eqnarray}
+	\small
+	--> OUT[B] = \biguplus_{S \in Succ[B]} IN[S] <--  \nonumber \\ \nonumber
+	\end{eqnarray}
+
+	\centering
+	\begin{tikzpicture}[->,>=stealth']
+	\centering
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=3cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{	\tiny
+		\begin{tabular}{l}
+		\textbf{BB0:}\\
+		...\\
+		{\color{red} OUT[BB0] = {(A,RW,CPU)}} \\
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-0.5cm,
+	xshift=-2cm,
+	anchor=center,
+	text width=3cm] (BB1)
+	{	\tiny
+		\begin{tabular}{l}
+		\textbf{BB1:}\\
+		IN[BB1] = {(A,R,CPU)} \\ ...
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB0,
+	yshift=-0.5cm,
+	xshift=+2cm,
+	text width=3cm] (BB2)
+	{	\tiny
+		\begin{tabular}{l}
+		\textbf{BB2:}\\
+		IN[BB2] = {(A,W,CPU)} \\ ...
+		\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB0) edge (BB2);
+	\end{tikzpicture}
+
+
+	\begin{table}[!htbp]
+		\centering
+		\tiny
+		\label{tab:insert}
+		\setlength\tabcolsep{3pt}
+		\begin{minipage}{0.49\textwidth}
+			\centering
+			\begin{tabular}{||l|l|l||}
+				\hline
+				\multicolumn{3}{||c||}{Meeting Access Types}
+				\\ \hline
+				\multicolumn{1}{||c|}{\mat{t_i}} &
+				\multicolumn{1}{|c|}{\mat{t_j}} &
+				\multicolumn{1}{|c||}{\mat{t_i} $\oplus$ \mat{t_j}}
+				\\ \hline
+				R   & R    & R    \\ \hline
+				R & [W,RW] & RW \\ \hline
+				W   & W   & W    \\ \hline
+				W & RW & RW \\ \hline
+				RW   & RW   & RW  \\ \hline
+			\end{tabular}
+		\end{minipage}
+		\hfill
+		\begin{minipage}{0.49\textwidth}
+			\centering
+			\begin{tabular}{||l|l|l||}
+				\hline
+				\multicolumn{3}{||c||}{Meeting Access Devices}
+				\\ \hline
+				\multicolumn{1}{||c|}{\mat{d_i}} &
+				\multicolumn{1}{|c|}{\mat{d_j}} &
+				\multicolumn{1}{c||}{\mat{d_i} $\oplus$ \mat{d_j}}
+				\\ \hline
+				CPU & CPU       & CPU   \\ \hline
+				GPU & GPU       & GPU   \\ \hline
+				GPU & [CPU,X]  & X    \\ \hline
+				CPU & [GPU,X]  & X    \\ \hline
+				X & [CPU,GPU,X]  & X    \\ \hline
+			\end{tabular}
+		\end{minipage}
+	\end{table}
+}
+
+\frame{
+	\frametitle{\textbf{Running DCA}}
+	\centering
+	\begin{tikzpicture}[->,>=stealth']
+	\centering
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=3.2cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{	\scriptsize
+		\begin{tabular}{l}
+		\textbf{BB0:}\\ \\
+		s1: A = malloc();
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-0.5cm,
+	anchor=center,
+	text width=3.2cm] (BB1)
+	{	\scriptsize
+		\begin{tabular}{l}
+		\textbf{BB1:}\\ \\
+		s2: A[i] = i + 1;
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB1,
+	yshift=-0.5cm,
+	text width=3.2cm] (BB2)
+	{	\scriptsize
+		\begin{tabular}{l}
+		\textbf{BB2:}\\ \\
+		s3: GPUKernel(A); \\
+		\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB1)  	edge[loop left] (BB1)
+	(BB1) edge (BB2);
+	\end{tikzpicture}
+}
+
+
+
+\frame{
+	\frametitle{\textbf{Running DCA - Local Analysis}}
+	\begin{tikzpicture}[->,>=stealth']
+
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=3.2cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB0:}\\ \\
+		\tiny
+		IN[s1] = \{\} \\
+		\tiny
+		GEN[s1] = \{\} \\
+		s1: A = malloc(); \\
+		\tiny
+		OUT[s1] = \{\} \\
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-1.6cm,
+	xshift=+4cm,
+	anchor=center,
+	text width=3.2cm] (BB1)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB1:}\\ \\
+		\tiny
+		IN[s2] = \{(A,W,CPU)\} \\
+		\tiny
+		GEN[s2] = \{(A,W,CPU)\} \\
+		s2: A[i] = i + 1 \\
+		\tiny
+		OUT[s2] = \{\} \\
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB1,
+	yshift=-0.8cm,
+	xshift=+4.0cm,
+	text width=3.2cm] (BB2)
+	{
+			\begin{tabular}{l}
+			\scriptsize
+			\textbf{BB2:}\\ \\
+			\tiny
+			IN[s3] = \{(A,W,GPU)\} \\
+			\tiny
+			GEN[s3] = \{(A,W,GPU)\} \\
+			s3: GPUKernel(A) \\
+			\tiny
+			OUT[s3] = \{\} \\
+			\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB1)  	edge[loop left] (BB1)
+	(BB1) edge (BB2);
+	\end{tikzpicture}
+}
+
+
+\frame{
+	\frametitle{\textbf{Running DCA - Global Analysis}}
+	\begin{tikzpicture}[->,>=stealth']
+
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=3.2cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB0:}\\ \\
+		\tiny
+		IN[BB0] = \{(A,W,CPU)\} \\
+		\tiny
+		GEN[BB0] = \{\} \\
+		\tiny
+		OUT[BB0] = \{(A,W,CPU)\} \\
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-1.6cm,
+	xshift=+4cm,
+	anchor=center,
+	text width=3.2cm] (BB1)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB1:}\\ \\
+		\tiny
+		IN[BB1] = \{(A,W,CPU)\} \\
+		\tiny
+		GEN[BB1] = \{(A,W,CPU)\} \\
+		\tiny
+		OUT[BB1] = \{(A,W,X)\} \\
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB1,
+	yshift=-0.8cm,
+	xshift=+4.0cm,
+	text width=3.2cm] (BB2)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB2:}\\ \\
+		\tiny
+		IN[BB2] = \{(A,W,GPU)\} \\
+		\tiny
+		GEN[BB2] = \{(A,W,GPU)\} \\
+		\tiny
+		OUT[BB2] = \{\} \\
+		\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB1)  	edge[loop left] (BB1)
+	(BB1) edge (BB2);
+	\end{tikzpicture}
+
+
+	\footnotesize
+	{\color{red} OUT[BB1] = \{(A,W,CPU)\} $\biguplus$ \{(A,W,GPU)\} = \{(A,W,X)\}}\\
+}
+
+
+\frame{
+	\frametitle{\textbf{Running DCA - Local Analysis}}
+	\begin{tikzpicture}[->,>=stealth']
+
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=3.2cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB0:}\\ \\
+		\tiny
+		IN[s1] = \{(A,W,CPU)\} \\
+		\tiny
+		GEN[s1] = \{\} \\
+		s1: A = malloc(); \\
+		\tiny
+		{\color{red} OUT[s1] = \{(A,W,CPU)\}}
+		 \\
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-1.6cm,
+	xshift=+4cm,
+	anchor=center,
+	text width=3.2cm] (BB1)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB1:}\\ \\
+		\tiny
+		IN[s2] = \{(A,W,CPU)\} \\
+		\tiny
+		GEN[s2] = \{(A,W,CPU)\} \\
+		s2: A[i] = i + 1 \\
+		\tiny
+		{\color{red} OUT[s2] = \{(A,W,X)\}}
+		 \\
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB1,
+	yshift=-0.8cm,
+	xshift=+4.0cm,
+	text width=3.2cm] (BB2)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB2:}\\ \\
+		\tiny
+		IN[s3] = \{(A,W,GPU)\} \\
+		\tiny
+		GEN[s3] = \{(A,W,GPU)\} \\
+		s3: GPUKernel(A) \\
+		\tiny
+		{\color{red} OUT[s3] = \{\}}
+		 \\
+		\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB1)  	edge[loop left] (BB1)
+	(BB1) edge (BB2);
+	\end{tikzpicture}
+}
+
+
+\frame{
+	\frametitle{\textbf{Data Coherence Optimization (DCO)}}
+	Data Coherence Optimization (DCO) is divided in two optimization passes that run back-to-back on the program LLVM IR:
+	\begin{itemize}
+		\item Shared Buffer Allocation (SBA);
+		\item Map/Unmap Insertion (MUI).
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{\textbf{Shared Buffer Allocation (SBA)}}
+
+	\begin{itemize}
+		\item Replaces standard host memory allocation mechanisms (e.g. malloc and calloc) for specialized OpenCL shared buffers allocation;
+		\item Insert map function after allocating the shared buffer;
+	\end{itemize}
+
+	\begin{figure}[]
+		\includegraphics[scale=0.5]{Figures/sba_result.png}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{\textbf{Map/Unmap Insertion (MUI)}}
+	\begin{itemize}
+		\item Insert map and unmap functions;
+		\item MUI uses a variable called Current Access (CA) to determine when to insert map/unmap functions.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{\textbf{MUI Example}}
+	\begin{figure}[!htbp]
+		\includegraphics[scale=0.6]{Figures/cfgMap.pdf}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{\textbf{Running DCO -- DCA Result}}
+	\begin{tikzpicture}[->,>=stealth']
+
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=3.2cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB0:}\\ \\
+		\tiny
+		IN[s1] = \{(A,W,CPU)\} \\
+		\tiny
+		GEN[s1] = \{\} \\
+		s1: A = malloc(); \\
+		\tiny
+		OUT[s1] = \{(A,W,CPU)\} \\
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-1.6cm,
+	xshift=+4cm,
+	anchor=center,
+	text width=3.2cm] (BB1)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB1:}\\ \\
+		\tiny
+		IN[s2] = \{(A,W,CPU)\} \\
+		\tiny
+		GEN[s2] = \{(A,W,CPU)\} \\
+		s2: A[i] = i + 1 \\
+		\tiny
+		OUT[s2] = \{(A,W,X)\} \\
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB1,
+	yshift=-0.8cm,
+	xshift=+4.0cm,
+	text width=3.2cm] (BB2)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB2:}\\ \\
+		\tiny
+		IN[s3] = \{(A,W,GPU)\} \\
+		\tiny
+		GEN[s3] = \{(A,W,GPU)\} \\
+		s3: GPUKernel(A) \\
+		\tiny
+		OUT[s3] = \{\} \\
+		\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB1)  	edge[loop left] (BB1)
+	(BB1) edge (BB2);
+	\end{tikzpicture}
+}
+
+
+\frame{
+	\frametitle{\textbf{Running DCO -- SBA}}
+	\begin{tikzpicture}[->,>=stealth']
+
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=4.4cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB0:}\\ \\
+		\\ {\color{red} s1: A = clCreateBuffer()} \\
+		{\color{red} map(A)} \\
+		\tiny
+		OUT[s1] = \{(A,W,CPU)\} \\
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-1.6cm,
+	xshift=+4.3cm,
+	anchor=center,
+	text width=3.2cm] (BB1)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB1:}\\ \\
+		\tiny
+		IN[s2] = \{(A,W,CPU)\} \\
+		\tiny
+		GEN[s2] = \{(A,W,CPU)\} \\
+		s2: A[i] = i + 1 \\
+		\tiny
+		OUT[s2] = \{(A,W,X)\} \\
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB1,
+	yshift=-0.8cm,
+	xshift=+3.7cm,
+	text width=3.2cm] (BB2)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB2:}\\ \\
+		\tiny
+		IN[s3] = \{(A,W,GPU)\} \\
+		\tiny
+		GEN[s3] = \{(A,W,GPU)\} \\
+		s3: GPUKernel(A) \\
+		\tiny
+		OUT[s3] = \{\} \\
+		\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB1)  	edge[loop left] (BB1)
+	(BB1) edge (BB2);
+	\end{tikzpicture}
+}
+
+
+\frame{
+	\frametitle{\textbf{Running DCO -- MUI}}
+	\begin{tikzpicture}[->,>=stealth']
+
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=4.4cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB0:}\\ \\
+		s1: A = clCreateBuffer(); \\
+		map(A);\\
+		\tiny
+		{\color{red} CA=(A,W,CPU)} \\
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-1.6cm,
+	xshift=+4.3cm,
+	anchor=center,
+	text width=3.2cm] (BB1)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB1:}\\ \\
+		\tiny
+		IN[s2] = \{(A,W,CPU)\} \\
+		\tiny
+		GEN[s2] = \{(A,W,CPU)\} \\
+		s2: A[i] = i + 1 \\
+		\tiny
+		OUT[s2] = \{(A,W,X)\} \\
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB1,
+	yshift=-0.8cm,
+	xshift=+3.7cm,
+	text width=3.2cm] (BB2)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB2:}\\ \\
+		\tiny
+		IN[s3] = \{(A,W,GPU)\} \\
+		\tiny
+		GEN[s3] = \{(A,W,GPU)\} \\
+		s3: GPUKernel(A) \\
+		\tiny
+		OUT[s3] = \{\} \\
+		\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB1)  	edge[loop left] (BB1)
+	(BB1) edge (BB2);
+	\end{tikzpicture}
+
+	\footnotesize
+	{\color{red}BB0$\rightarrow$BB1 --- MUI((A,W,CPU), (A,W,CPU)) $\rightarrow$ (A,W,CPU)}
+}
+
+
+\frame{
+	\frametitle{\textbf{Running DCO -- MUI}}
+	\begin{tikzpicture}[->,>=stealth']
+
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=4.4cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB0:}\\ \\
+		s1: A = clCreateBuffer(); \\
+		map(A);\\
+		\tiny
+		CA=(A,W,CPU)
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-1.2cm,
+	xshift=+4.3cm,
+	anchor=center,
+	text width=3.2cm] (BB1)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB1:}\\ \\
+		\tiny
+		{\color{red} CA=(A,W,CPU)} \\
+		s2: A[i] = i + 1 \\
+		\tiny
+		{\color{red} CA=(A,W,CPU)} \\
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB1,
+	yshift=-0.8cm,
+	xshift=+3.7cm,
+	text width=3.2cm] (BB2)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB2:}\\ \\
+		\tiny
+		IN[s3] = \{(A,W,GPU)\} \\
+		\tiny
+		GEN[s3] = \{(A,W,GPU)\} \\
+		s3: GPUKernel(A) \\
+		\tiny
+		OUT[s3] = \{\} \\
+		\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB1)  	edge[loop left] (BB1)
+	(BB1) edge (BB2);
+	\end{tikzpicture}
+	\footnotesize
+	{\color{red} BB01$\rightarrow$BB1 --- MUI((A,W,CPU), (A,W,CPU)) $\rightarrow$ (A,W,CPU)}
+
+	\footnotesize
+	{\color{red} BB01$\rightarrow$BB2 --- MUI((A,W,CPU), (A,W,GPU)) $\rightarrow$ (A,W,GPU), insert unmap}
+
+}
+
+\frame{
+	\frametitle{\textbf{Running DCO -- MUI}}
+	\begin{tikzpicture}[->,>=stealth']
+
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=4.4cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB0:}\\ \\
+		s1: A = clCreateBuffer(); \\
+		map(A);\\
+		\tiny
+		CA=(A,W,CPU)
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-1.6cm,
+	xshift=+4.3cm,
+	anchor=center,
+	text width=3.2cm] (BB1)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB1:}\\ \\
+		\tiny
+		CA=(A,W,CPU) \\
+		s2: A[i] = i + 1 \\
+		\tiny
+		CA=(A,W,CPU) \\
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB1,
+	yshift=-0.5cm,
+	xshift=+3.7cm,
+	text width=3.2cm] (BB2)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB2:}\\ \\
+		\tiny
+		{\color{red} CA=(A,W,GPU)} \\
+		{\color{red}unmap(A)} \\
+		s3: GPUKernel(A) \\
+		\tiny
+		{\color{red} CA=(A,W,GPU)} \\
+		\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB1)  	edge[loop left] (BB1)
+	(BB1) edge (BB2);
+	\end{tikzpicture}
+}
+
+
+\frame{
+	\frametitle{\textbf{Running DCO -- Result}}
+	\begin{tikzpicture}[->,>=stealth']
+
+	% STATE BB0
+	\node[state,    	% layout (defined above)
+	text width=4.4cm, 	% max text width
+	anchor=center] (BB0) 	% posistion relative to the center of the 'box'
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB0:}\\ \\
+		s1: A = clCreateBuffer(); \\
+		map(A);\\
+		\end{tabular}
+	};
+	% STATE BB1
+	\node[state,
+	below of=BB0,
+	yshift=-1.6cm,
+	xshift=+4.3cm,
+	anchor=center,
+	text width=3.2cm] (BB1)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB1:}\\ \\
+		s2: A[i] = i + 1 \\
+		\end{tabular}
+	};
+	% STATE BB2
+	\node[state,
+	below of=BB1,
+	yshift=-0.5cm,
+	xshift=+3.7cm,
+	text width=3.2cm] (BB2)
+	{
+		\begin{tabular}{l}
+		\scriptsize
+		\textbf{BB2:}\\ \\
+		unmap(A);\\
+		s3: GPUKernel(A) \\
+		\end{tabular}
+	};
+
+	\path
+	(BB0) edge (BB1)
+	(BB1)  	edge[loop left] (BB1)
+	(BB1) edge (BB2);
+	\end{tikzpicture}
+}
+%------------------RELATED WORKS---------------------
+
+\frame{
+	\section{Related Works}
+	\frametitle{\textbf{Related Works}}
+\begin{table}[]
+	\centering
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Project}            & \textbf{offload/shared} & \textbf{coherence} \\ \hline
+		ADSM (Gelado et al. 2010)   & offload                 & manual notations   \\ \hline
+		CGCM (Jablin et al. 2011)   & offload                 & manual notations   \\ \hline
+		DyManD (Jablin et al. 2012) & offload                 & runtime            \\ \hline
+		hiCL (Said et al. 2016)     & shared                  & manual notations   \\ \hline
+		DCAO (Sousa et al. 2017)                     & shared                  & automatic          \\ \hline
+	\end{tabular}
+\end{table}
+}
+
+
+%-----------------Experimental Evaluation---------------------
+\frame{
+	\section{Experimental Evaluation}
+	\frametitle{\textbf{Experimental Evaluation}}
+	GPUClang+DCO have been evaluated using two integrated CPU-GPU architectures:
+	\begin{itemize}
+		\item A mobile Exynos 8890 Octa-core CPU (4x2.3 GHz Mongoose 4x1.6 GHz Cortex-A53) integrated with an ARM Mali-T880 GPU (16x850 Mhz) running Android OS, v6.0 (Marshmallow); an
+		\item a laptop with 2.4 GHz dual-core Intel Core i5	processor integrated with an Intel Iris GPU with 40 execution units.
+	\end{itemize}
+}
+
+\frame{
+	\frametitle{\textbf{GPUClang Compiler}}
+	\begin{figure}[!htbp]
+		\includegraphics[scale=0.3]{Figures/gpuclang.pdf}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{\textbf{GPUClang Example}}
+	\begin{figure}[!htbp]
+		\includegraphics[scale=0.45]{Figures/mvt.png}
+	\end{figure}
+}
+
+\frame{
+	\frametitle{\textbf{DCO Performance Analysis}}
+	\begin{figure}
+		\centering
+		\caption{Before DCO Optimization}
+		\begin{subfigure}[b]{0.47\textwidth}
+			\includegraphics[width=\textwidth]{plotfiles/before.pdf}
+			\caption{ARM/Mali}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.47\textwidth}
+			\includegraphics[width=\textwidth]{plotfiles/before_iris.pdf}
+			\caption{Intel/Iris}
+		\end{subfigure}
+
+	\end{figure}
+}
+
+\frame{
+	\frametitle{\textbf{DCO Performance Analysis}}
+	\begin{figure}
+		\centering
+		\caption{After DCO Optimization}
+		\begin{subfigure}[b]{0.47\textwidth}
+			\includegraphics[width=\textwidth]{plotfiles/after.pdf}
+			\caption{ARM/Mali}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.47\textwidth}
+			\includegraphics[width=\textwidth]{plotfiles/after_iris.pdf}
+			\caption{Intel/Iris}
+		\end{subfigure}
+
+	\end{figure}
+}
+
+
+\frame{
+	\frametitle{\textbf{GPUClang+DCO vs GPUClang}}
+	\begin{figure}
+		\centering
+		\caption{GPUClang+DCO Speedup with respect to GPUClang (both -O2 -opt-tile)}
+		\begin{subfigure}[b]{0.47\textwidth}
+			\includegraphics[width=\textwidth]{plotfiles/s7.pdf}
+			\caption{ARM/Mali}
+		\end{subfigure}
+		\begin{subfigure}[b]{0.47\textwidth}
+			\includegraphics[width=\textwidth]{plotfiles/iris.pdf}
+			\caption{Intel/Iris}
+		\end{subfigure}
+
+	\end{figure}
+}
+
+
+\frame{
+	\frametitle{\textbf{DCO Performance Analysis}}
+
+	\begin{figure}[!htbp]
+		\caption{GPUClang+DCO Speedup with respect to GPUClang (both -O2 -opt-tile).}
+		\includegraphics[scale=0.3]{plotfiles/rodinia_parboil/s7.pdf}\label{fig:rodinia}
+		\subcaption{ARM/Mali}
+	\end{figure}
+}
+
+%*******************Results and Future Works*******************
+\frame{
+	\section{Conclusion and Future Works}
+	\frametitle{\textbf{Conclusion and Future Works}}
+	Conclusion:
+	\begin{itemize}
+		\item Use of shared buffer between CPU/GPU
+		\item Data Coherent between CPU/GPU;
+		\item Speedups up to 5.25x.
+	\end{itemize}
+
+	Future Works:
+	\begin{itemize}
+		\item Make DCA+DCO inter-procedural;
+		\item Apply Link Time Optimization (LTO);
+		\item Work with complex data structures.
+	\end{itemize}
+}
+
+
+\frame{
+	\frametitle{\textbf{Thanks}}
+	\begin{figure}[!htbp]
+		\includegraphics[scale=0.4]{Figures/thanks.png}
+	\end{figure}
+}
+
+\end{document} \grid

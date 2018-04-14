@@ -1,0 +1,383 @@
+https://en.wikipedia.org/wiki/Heterogeneous_System_Architecture
+http://www.androidauthority.com/qualcomm-kryo-and-heterogeneous-computing-explained-639243/
+http://docs.nvidia.com/cuda/cuda-c-programming-guide/
+http://malideveloper.arm.com/downloads/deved/tutorial/SDK/opencl/memory_buffers_tutorial.html
+http://www.hardwarezone.com.sg/feature-amds-hsa-threat-intels-dominance-and-mobile-ambitions
+
+##################################################INTRODUCAO
+
+
+SLIDE 1
+-------------------------
+Com o avanço de computação heterogenia e cada vez mais aplicações requisitando hpc, vários modelos de computação tem surgido para facilitar os programadores a fazer uso de devices aceleradores (eg. GPU, FPGA, APUs, etc).
+
+-------------------------
+
+
+SLIDE 2
+--------------------------
+PQ USAR GPU? (Imagens NVIDIA)
+--------------------------
+
+
+##################################################BACKGROUND
+
+
+SLIDE 3 
+--------------------------
+programming models for heterogeneous system:
+--> OpenMP
+--> OpenACC
+--> CUDA
+--> OpenCL
+
+Como exemplo de "modelos de computação" podemos citar OpenMP e OpenACC, que através de simples 'pragmas e diretivas', o compilador consegue gerar códigos altamente otimizados para seu uso em um devices aceleradores (GPU). Outros exemplos, que normalmente exige um pouco mais do conhecimento do programdor é: CUDA e OpenCL.
+--------------------------
+
+
+SLIDE 4
+--------------------------
+Falar do modelo de execução de uma GPU -- Offloading - execução -- offloading... (dGPU)
+--------------------------
+
+
+SLIDE 5
+-------------------------
+Falar dos diferentes tipos de GPU (iGPU e dGPU) - zero copy
+-------------------------
+
+
+SLIDE 6
+--------------------------
+Falar do modelo de execução de uma GPU -- Offloading - execução -- offloading... (iGPU)
+--------------------------
+
+
+SLIDE 7
+--------------------------
+Durante a computação do Kernel, alguns GPU buffers sao criados de modo que o kernel faça sua computação a partir desses buffers
+OpenCL -> clCreateBuffer()
+CUDA -> cudaMalloc()
+
+CL_MEM_READ_WRITE 
+
+CL_MEM_USE_HOST_PTR
+
+CL_MEM_ALLOC_HOST_PTR : 
+--------------------------
+
+
+SLIDE 8
+--------------------------
+OpenCL Data Offloading/Coherence
+Fig 2.1 (a)
+--------------------------
+
+
+SLIDE 9
+--------------------------
+OpenCL Data Offloading/Coherence
+Fig 2.1 (b)
+--------------------------
+
+
+SLIDE 10
+--------------------------
+OpenCL Data Offloading/Coherence
+Fig 2.1 (c)
+--------------------------
+
+
+SLIDE 11
+--------------------------
+Host/Device Coherence Calls:
+* map:
+* unmap:
+* read:
+* write
+--------------------------
+
+
+##################################################TRABALHOS RELACIONADOS E MOTIVACAO
+
+
+SLIDE 12
+--------------------------
+Trabalhos relacionados:
+Falar rapidamente
+--------------------------
+
+
+SLIDE 13
+--------------------------
+Industria: 
+More recently, processor vendors like Intel, AMD, ARM, Qualcomm, and Samsung are embracing integrated CPU/GPUs and moving towards fully unified address space support, as detailed in Heterogeneous Systems Architecture (HSA)
+--------------------------
+
+
+SLIDE 14
+--------------------------
+Industria: 
+Barramento IBM + NVIDIA
+--------------------------
+
+
+SLIDE 15
+--------------------------
+Motivação: 
+Poucos trabalhos desenvolvidos para iGPU.
+Benchmarks desenvolvidos usando modelo de offload de dados.
+--------------------------
+
+
+##################################################DCAO
+
+
+
+SLIDE 16
+--------------------------
+Como DCAO funciona:
+(a) make these variables shared between CPU and GPU; 
+(b) automatically avoid data movement of shared variables; and
+(c) keep the data used by host and devices coherent. Finding the best locations to insert coherence map/unmap calls into source code can be casted as the Data Coherence Analysis and Optimization problem.
+
+Hence, solving the DCAO problem involves: 
+(1) identifying the blocks of code where shared variables are used by different devices (e.g. CPU or GPU) and 
+(2) insert map/unmap calls so as to minimize the need of data coherence operations among host and devices.
+--------------------------
+
+
+SLIDE 17
+--------------------------
+Figura 1.1
+--------------------------
+
+
+SLIDE 18
+--------------------------
+Contribuição:
+It proposes the Data Coherence Analysis — DCA, a program data-flow analysis algorithm to determine the usage of data by heterogeneous devices at each program point; this allows to detect which variables are shared between host and devices.
+
+It introduces the Data Coherence Optimization — DCO, a DCA-based algorithm that performs two tasks: (a) replaces standard host memory allocation mechanisms(e.g. malloc and calloc) for specialized OpenCL shared buffer allocation; and (b) calls OpenCL functions map and unmap into program points so as to minimize the amount of data coherence operations required between host and device.
+
+This research work makes two main contributions. The first one is an analysis algo-
+rithm, called Data Coherence Analysis (DCA), whose main focus is to gather information
+from the program execution flow. The second is Data Coherence Optimization (DCO),
+an algorithm that inserts map and unmap calls into the program in order to maintain data
+coherence between CPU and GPU, based on the informations gathered DCA.
+
+DCAO is performed in two passes. First, DCA analysis is used to determine at each
+program point which devices (e.g. CPU/GPU) accesses live program variables, as well as
+the type of the accesses – read (R), write (W), or read and write (RW). In the second pass,
+DCO optimization performs two code transformation steps: (a) shared buffer allocation
+which detects those CPU allocated variables (through malloc or calloc) that are also
+accessed from within GPU kernels; allocation of such variables at the CPU side are then
+replaced by allocation of OpenCL buffers that are shared by both CPU and GPU; (b)
+coherence call insertion which inserts map and unmap function calls to keep CPU-GPU
+shared buffers coherent during program execution.
+--------------------------
+
+
+SLIDE 19
+--------------------------
+• What is the first access to variable v reachable from p?
+• Which type of access is performed: read, write, or read and write?
+• Which devices access v: CPU or GPU?
+
+tupla
+
+Given the answers above one can think of DCA as an extended form of Liveness
+Analysis [14], where the information item is an access containing not only the name of
+the variable but also the type of the access and the device that performed it.
+--------------------------
+
+
+SLIDE 20
+--------------------------
+fig 3.1
+--------------------------
+
+
+SLIDE 21
+--------------------------
+LOCAL Analysis
+GEN
+OUT
+IN
+
+combiner operator
+2 tabelas
+--------------------------
+
+
+SLIDE 22
+--------------------------
+GLOBAL Analysis
+GEN
+OUT
+IN
+
+meet operator
+2 tabelas
+--------------------------
+
+
+
+SLIDE 23
+--------------------------
+Entrando mais um pouco no nível da IR do LLVM:
+Computing GEN and KILL (tabelas)
+--------------------------
+
+
+SLIDE 24
+--------------------------
+Running DCA
+--------------------------
+
+
+SLIDE 25
+--------------------------
+Figuras 3.2 
+--------------------------
+
+
+SLIDE 26
+--------------------------
+Figuras 3.3 
+--------------------------
+
+
+SLIDE 27
+--------------------------
+DCO
+
+The set of accesses at each program point resulting from DCA is used to implement Data
+Coherence Optimization (DCO). This is done by means of two optimization passes that
+run back-to-back on the program LLVM IR: (a) Shared Buffer Allocation (SBA) (see
+Section 3.2.1) — this pass replaces CPU allocated data (through malloc or calloc) by
+OpenCL shared buffers if the variables associated to the data are used by both CPU and
+GPU; and (b) MapUnmap Insertion (MUI) (see Section 3.2.2) to insert calls to OpenCL
+so as to keep variables coherent.
+--------------------------
+
+
+SLIDE 28
+--------------------------
+SBA 
+
+Before starting running MUI algorithm, a tracking is performed to identify all CPU buffers
+used by any GPU computation so that it identify which malloc or calloc the CPU buffer
+is associated. This is done to identify which buffers can be transformed in a shared buffer
+between CPU and GPU. This is an inter-procedural analysis, since one GPU execution
+can be in a function that does not allocate the CPU buffer.
+--------------------------
+
+
+SLIDE 29
+--------------------------
+Figuras 3.4
+--------------------------
+
+
+SLIDE 30
+--------------------------
+Map/Unmap Insertion (MUI)
+
+After DCA analysis is performed each program point p has associated to it a set Sp
+containing all accesses that can be reached at some path starting at p. Therefore, one
+can use Sp to determine which future accesses a variable might have and thus identify
+the need to insert map or unmap instructions at p, an optimization pass of DCO that is
+called Map/Unmap Insertion (MUI). In order to achieve that, MUI visits the program
+CFG starting at its first basic block towards its end. At each point p it compares the
+accesses in Sp against the value of Current Access (CA), a tuple that is used by MUI to
+indicate who owns the pointer to the shared buffer, and thus who controls its access. In
+a typical heterogeneous platform CA = (v,[R,W,RW],[CPU,GPU]), and before MUI starts
+CA = (v,W,CPU), meaning that the CPU controls the first access to the buffer of shared
+variable v.
+
+Tabela 3.7
+--------------------------
+
+
+SLIDE 30
+--------------------------
+Figuras 3.5
+--------------------------
+
+##################################################EXPERIMENTAL EVALUATION
+
+
+SLIDE 31
+--------------------------
+GPUClang and DCO have been evaluated using two integrated CPU-GPU architec-
+tures: (a) a mobile Exynos 8890 Octa-core CPU (4x2.3 GHz Mongoose & 4x1.6 GHz
+Cortex-A53) integrated with an ARM Mali-T880 MP12 GPU (12x650 Mhz) running An-
+droid OS, v6.0 (Marshmallow); and (b) a laptop with 2.4 GHz dual-core Intel Core i5
+processor integrated with an Intel Iris GPU with 40 execution units. The results pre-
+sented in all experiments are averaged over ten executions. Variance is negligible; hence,
+we will not provide error intervals.
+--------------------------
+
+
+SLIDE 32
+--------------------------
+gpuclang --figura
+--------------------------
+
+
+SLIDE 33
+--------------------------
+gpuclang  --código example
+--------------------------
+
+
+SLIDE 34
+--------------------------
+fig 5.5
+--------------------------
+
+
+SLIDE 35
+--------------------------
+fig 5.2 (a) e (b)
+--------------------------
+
+
+SLIDE 36
+--------------------------
+fig 5.2 (c) e (d)
+--------------------------
+
+
+SLIDE 37
+--------------------------
+fig 5.3 (a) e (b)
+--------------------------
+
+
+SLIDE 38
+--------------------------
+table 5.1
+--------------------------
+
+
+SLIDE 39
+--------------------------
+fog 5.4 (a) e (b)
+--------------------------
+
+
+SLIDE 40
+--------------------------
+table 5.2 e fig 5.6
+--------------------------
+
+
+##################################################RESULTADOS E FUTURE WORKS
+
+
+SLIDE 41
+--------------------------
+Conclusão e Future works
+--------------------------- 
