@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.23)  14 APR 2018 19:27
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Debian) (preloaded format=pdflatex 2017.8.23)  21 APR 2018 19:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1709,6 +1709,10 @@ LaTeX Info: Redefining \selectfont on input line 126.
 \RaggedRightParindent=\skip71
 \JustifyingParindent=\skip72
 ) (./defesa_mestrado.nav)
+Overfull \hbox (14.48161pt too wide) in paragraph at lines 100--100
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
 <unicamp.png, id=52, 481.8pt x 421.575pt>
 File: unicamp.png Graphic file (type png)
  <use unicamp.png>
@@ -1721,24 +1725,38 @@ File: ic.png Graphic file (type png)
 Package pdftex.def Info: ic.png used on input line 104.
 (pdftex.def)             Requested size: 48.18282pt x 41.25653pt.
 
-Overfull \vbox (6.39801pt too high) detected at line 104
+Overfull \vbox (8.52718pt too high) detected at line 104
  []
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/n' in size <4> not available
 (Font)              size <5> substituted on input line 104.
 
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
 [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./unicamp.png> <./ic.png>]
- (./defesa_mestrado.toc) [2
+ (./defesa_mestrado.toc)
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
-] (./defesa_mestrado.toc) [3
+[2
+
+] (./defesa_mestrado.toc)
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[3
 
 ]
 LaTeX Font Info:    Try loading font information for U+msa on input line 127.
-
-(/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 127.
@@ -1753,72 +1771,117 @@ line 127.
 File: ot1mathkerncmss.fd 2013/03/27 Fontinst v1.933 font definitions for OT1/ma
 thkerncmss.
 )
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
 [4
 
-] <Figures/inclusive_exclusive.png, id=205, 863.225pt x 277.035pt>
+] <Figures/inclusive_exclusive.png, id=205, 909.3975pt x 289.08pt>
 File: Figures/inclusive_exclusive.png Graphic file (type png)
 
 <use Figures/inclusive_exclusive.png>
 Package pdftex.def Info: Figures/inclusive_exclusive.png used on input line 135
 .
-(pdftex.def)             Requested size: 256.07172pt x 71.13123pt.
- [5
+(pdftex.def)             Requested size: 256.0727pt x 71.13177pt.
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[5
 
  <./Figures/inclusive_exclusive.png>]
-<Figures/inclusive_exclusive_2.png, id=232, 892.33376pt x 289.08pt>
+<Figures/inclusive_exclusive_2.png, id=232, 892.33376pt x 282.05376pt>
 File: Figures/inclusive_exclusive_2.png Graphic file (type png)
 
 <use Figures/inclusive_exclusive_2.png>
 Package pdftex.def Info: Figures/inclusive_exclusive_2.png used on input line 1
 43.
-(pdftex.def)             Requested size: 256.07422pt x 71.13177pt.
- [6
+(pdftex.def)             Requested size: 256.07422pt x 71.133pt.
 
- <./Figures/inclusive_exclusive_2.png>] (./defesa_mestrado.toc) [7
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
-]
-<Figures/naivescan.png, id=296, 903.375pt x 429.605pt>
+[6
+
+ <./Figures/inclusive_exclusive_2.png>] (./defesa_mestrado.toc)
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[7
+
+] <Figures/naivescan.png, id=296, 903.375pt x 429.605pt>
 File: Figures/naivescan.png Graphic file (type png)
 
 <use Figures/naivescan.png>
 Package pdftex.def Info: Figures/naivescan.png used on input line 161.
 (pdftex.def)             Requested size: 284.52328pt x 142.26172pt.
- [8
 
- <./Figures/naivescan.png>] [9
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
-]
-<Figures/example_up.png, id=350, 504.88625pt x 230.8625pt>
+[8
+
+ <./Figures/naivescan.png>]
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[9
+
+] <Figures/example_up.png, id=350, 504.88625pt x 230.8625pt>
 File: Figures/example_up.png Graphic file (type png)
 
 <use Figures/example_up.png>
 Package pdftex.def Info: Figures/example_up.png used on input line 181.
 (pdftex.def)             Requested size: 284.52937pt x 142.26315pt.
- [10
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[10
 
  <./Figures/example_up.png>]
-<Figures/up1.png, id=379, 853.1875pt x 390.45876pt>
+<Figures/up1.png, id=379, 850.17625pt x 390.45876pt>
 File: Figures/up1.png Graphic file (type png)
  <use Figures/up1.png>
 Package pdftex.def Info: Figures/up1.png used on input line 188.
-(pdftex.def)             Requested size: 284.534pt x 142.26305pt.
+(pdftex.def)             Requested size: 284.52866pt x 142.26305pt.
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
 [11
 
- <./Figures/up1.png>] <Figures/up2.png, id=407, 849.1725pt x 394.47375pt>
+ <./Figures/up1.png>] <Figures/up2.png, id=407, 849.1725pt x 387.4475pt>
 File: Figures/up2.png Graphic file (type png)
 
 <use Figures/up2.png>
 Package pdftex.def Info: Figures/up2.png used on input line 195.
-(pdftex.def)             Requested size: 284.52962pt x 142.26324pt.
- [12
+(pdftex.def)             Requested size: 284.52962pt x 142.26552pt.
 
- <./Figures/up2.png>]
-<Figures/up3.png, id=435, 852.18375pt x 390.45876pt>
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[12
+
+ <./Figures/up2.png>] <Figures/up3.png, id=435, 850.17625pt x 390.45876pt>
 File: Figures/up3.png Graphic file (type png)
- <use Figures/up3.png>
+
+<use Figures/up3.png>
 Package pdftex.def Info: Figures/up3.png used on input line 202.
-(pdftex.def)             Requested size: 284.52432pt x 142.26305pt.
+(pdftex.def)             Requested size: 284.52866pt x 142.26305pt.
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
 [13
 
@@ -1828,51 +1891,82 @@ File: Figures/down.png Graphic file (type png)
 <use Figures/down.png>
 Package pdftex.def Info: Figures/down.png used on input line 209.
 (pdftex.def)             Requested size: 284.54012pt x 142.26524pt.
- [14
 
- <./Figures/down.png>]
-<Figures/down1.png, id=493, 791.95876pt x 464.73625pt>
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[14
+
+ <./Figures/down.png>] <Figures/down1.png, id=493, 790.955pt x 463.7325pt>
 File: Figures/down1.png Graphic file (type png)
- <use Figures/down1.png>
+
+<use Figures/down1.png>
 Package pdftex.def Info: Figures/down1.png used on input line 216.
-(pdftex.def)             Requested size: 284.52489pt x 142.25845pt.
+(pdftex.def)             Requested size: 284.52634pt x 142.26254pt.
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
 [15
 
  <./Figures/down1.png>]
-<Figures/down3.png, id=521, 788.9475pt x 464.73625pt>
+<Figures/down3.png, id=521, 784.9325pt x 459.7175pt>
 File: Figures/down3.png Graphic file (type png)
  <use Figures/down3.png>
 Package pdftex.def Info: Figures/down3.png used on input line 223.
-(pdftex.def)             Requested size: 284.52649pt x 142.25845pt.
+(pdftex.def)             Requested size: 284.52774pt x 142.26543pt.
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
 [16
 
- <./Figures/down3.png>] <Figures/down4.png, id=549, 911.405pt x 531.9875pt>
+ <./Figures/down3.png>] <Figures/down4.png, id=549, 883.3pt x 523.9575pt>
 File: Figures/down4.png Graphic file (type png)
 
 <use Figures/down4.png>
 Package pdftex.def Info: Figures/down4.png used on input line 230.
-(pdftex.def)             Requested size: 284.53522pt x 142.25858pt.
- [17
+(pdftex.def)             Requested size: 284.52174pt x 142.26192pt.
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[17
 
  <./Figures/down4.png>]
-<Figures/down5.png, id=577, 893.3375pt x 530.98375pt>
+<Figures/down5.png, id=577, 884.30376pt x 522.95375pt>
 File: Figures/down5.png Graphic file (type png)
  <use Figures/down5.png>
 Package pdftex.def Info: Figures/down5.png used on input line 237.
-(pdftex.def)             Requested size: 284.52434pt x 142.26563pt.
+(pdftex.def)             Requested size: 284.52122pt x 142.26068pt.
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
 [18
 
- <./Figures/down5.png>] [19
+ <./Figures/down5.png>]
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
-]
-<Figures/large.png, id=633, 681.54625pt x 552.0625pt>
+[19
+
+] <Figures/large.png, id=633, 681.54625pt x 552.0625pt>
 File: Figures/large.png Graphic file (type png)
- <use Figures/large.png>
+
+<use Figures/large.png>
 Package pdftex.def Info: Figures/large.png used on input line 257.
 (pdftex.def)             Requested size: 284.53154pt x 199.17195pt.
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
 [20
 
@@ -1883,7 +1977,12 @@ File: Figures/large1.png Graphic file (type png)
 <use Figures/large1.png>
 Package pdftex.def Info: Figures/large1.png used on input line 264.
 (pdftex.def)             Requested size: 284.52162pt x 199.16591pt.
- [21
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[21
 
  <./Figures/large1.png>]
 <Figures/large2.png, id=689, 513.41812pt x 413.29407pt>
@@ -1892,7 +1991,12 @@ File: Figures/large2.png Graphic file (type png)
 <use Figures/large2.png>
 Package pdftex.def Info: Figures/large2.png used on input line 271.
 (pdftex.def)             Requested size: 284.52737pt x 199.1735pt.
- [22
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[22
 
  <./Figures/large2.png>]
 <Figures/large3.png, id=717, 717.68124pt x 576.1525pt>
@@ -1901,9 +2005,18 @@ File: Figures/large3.png Graphic file (type png)
 <use Figures/large3.png>
 Package pdftex.def Info: Figures/large3.png used on input line 278.
 (pdftex.def)             Requested size: 284.5268pt x 199.16843pt.
- [23
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[23
 
  <./Figures/large3.png>] (./defesa_mestrado.toc)
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
 [24
 
 ] <Figures/aclang.png, id=780, 420.57124pt x 363.3575pt>
@@ -1912,7 +2025,12 @@ File: Figures/aclang.png Graphic file (type png)
 <use Figures/aclang.png>
 Package pdftex.def Info: Figures/aclang.png used on input line 300.
 (pdftex.def)             Requested size: 142.26074pt x 128.03639pt.
- [25
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[25
 
  <./Figures/aclang.png>]
 <Figures/pipelineAClang.png, id=809, 1081.03876pt x 465.74pt>
@@ -1924,6 +2042,11 @@ Package pdftex.def Info: Figures/pipelineAClang.png used on input line 308.
 
 Overfull \hbox (7.66902pt too wide) in paragraph at lines 308--308
  [] 
+ []
+
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
  []
 
 [26
@@ -1959,6 +2082,11 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 319--319
 [][][][][][][] 
  []
 
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
 [27
 
 pdfTeX warning (ext4): destination with the same identifier (name{}) has been a
@@ -1967,20 +2095,39 @@ lready used, duplicate ignored
 \@EveryShipout@Output ...@Org@Shipout \box \@cclv 
                                                   
 l.334 }
-       ] (./defesa_mestrado.toc) [28
+       ] (./defesa_mestrado.toc)
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
-] [29
-
-] (./defesa_mestrado.toc) [30
+[28
 
 ]
-<Figures/template.png, id=958, 775.89874pt x 567.11874pt>
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[29
+
+] (./defesa_mestrado.toc)
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[30
+
+] <Figures/template.png, id=958, 775.89874pt x 567.11874pt>
 File: Figures/template.png Graphic file (type png)
 
 <use Figures/template.png>
 Package pdftex.def Info: Figures/template.png used on input line 373.
 (pdftex.def)             Requested size: 284.53261pt x 199.16951pt.
- [31
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[31
 
  <./Figures/template.png>]
 \@verb\makeset=\box84
@@ -2003,9 +2150,19 @@ l.402 }
 Overfull \vbox (7.00943pt too high) detected at line 402
  []
 
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
 [32
 
-] [33
+]
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[33
 
 ]
 \@verb\makeset=\box85
@@ -2024,22 +2181,46 @@ lready used, duplicate ignored
 <to be read again> 
                    \relax 
 l.442 }
-        [34
+       
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
-] (./defesa_mestrado.toc) [35
+[34
 
-] [36
+] (./defesa_mestrado.toc)
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
-] [37
+[35
 
 ]
-<Figures/filter.png, id=1156, 635.37375pt x 162.6075pt>
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[36
+
+]
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[37
+
+] <Figures/filter.png, id=1156, 635.37375pt x 162.6075pt>
 File: Figures/filter.png Graphic file (type png)
 
 <use Figures/filter.png>
 Package pdftex.def Info: Figures/filter.png used on input line 487.
 (pdftex.def)             Requested size: 227.61945pt x 71.13315pt.
- [38
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[38
 
  <./Figures/filter.png>]
 <Figures/filter1.png, id=1185, 1059.96pt x 258.9675pt>
@@ -2048,7 +2229,12 @@ File: Figures/filter1.png Graphic file (type png)
 <use Figures/filter1.png>
 Package pdftex.def Info: Figures/filter1.png used on input line 494.
 (pdftex.def)             Requested size: 284.52713pt x 85.35678pt.
- [39
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[39
 
  <./Figures/filter1.png>]
 <Figures/filter2.png, id=1213, 1054.94125pt x 328.22626pt>
@@ -2057,7 +2243,12 @@ File: Figures/filter2.png Graphic file (type png)
 <use Figures/filter2.png>
 Package pdftex.def Info: Figures/filter2.png used on input line 501.
 (pdftex.def)             Requested size: 284.516pt x 113.80913pt.
- [40
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[40
 
  <./Figures/filter2.png>]
 <Figures/filter3.png, id=1241, 1053.9375pt x 509.905pt>
@@ -2066,7 +2257,12 @@ File: Figures/filter3.png Graphic file (type png)
 <use Figures/filter3.png>
 Package pdftex.def Info: Figures/filter3.png used on input line 508.
 (pdftex.def)             Requested size: 284.53476pt x 142.2667pt.
- [41
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[41
 
  <./Figures/filter3.png>]
 <Figures/filter4.png, id=1270, 1056.94875pt x 509.905pt>
@@ -2075,7 +2271,12 @@ File: Figures/filter4.png Graphic file (type png)
 <use Figures/filter4.png>
 Package pdftex.def Info: Figures/filter4.png used on input line 515.
 (pdftex.def)             Requested size: 284.5252pt x 142.2667pt.
- [42
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[42
 
  <./Figures/filter4.png>]
 \@verb\makeset=\box86
@@ -2094,7 +2295,12 @@ lready used, duplicate ignored
 <to be read again> 
                    \relax 
 l.547 }
-        [43
+       
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[43
 
 ]
 \@verb\makeset=\box87
@@ -2112,26 +2318,41 @@ pdfTeX warning (ext4): destination with the same identifier (name{}) has been a
 lready used, duplicate ignored
 <to be read again> 
                    \relax 
-l.566 }
-        [44
+l.569 }
+       
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
-] [45
+[44
+
+]
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[45
 
 ] <Figures/fibo.png, id=1378, 1031.855pt x 579.16376pt>
 File: Figures/fibo.png Graphic file (type png)
 
 <use Figures/fibo.png>
-Package pdftex.def Info: Figures/fibo.png used on input line 593.
+Package pdftex.def Info: Figures/fibo.png used on input line 596.
 (pdftex.def)             Requested size: 199.1562pt x 156.49118pt.
  <Figures/struct.png, id=1379, 455.7025pt x 369.38pt>
 File: Figures/struct.png Graphic file (type png)
 
 <use Figures/struct.png>
-Package pdftex.def Info: Figures/struct.png used on input line 593.
+Package pdftex.def Info: Figures/struct.png used on input line 596.
 (pdftex.def)             Requested size: 142.26761pt x 113.80771pt.
 
-Overfull \hbox (5.35158pt too wide) in paragraph at lines 593--593
+Overfull \hbox (5.35158pt too wide) in paragraph at lines 596--596
  [] 
+ []
+
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
  []
 
 [46
@@ -2139,12 +2360,12 @@ Overfull \hbox (5.35158pt too wide) in paragraph at lines 593--593
  <./Figures/fibo.png> <./Figures/struct.png>]
 \@verb\makeset=\box88
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 597--597
+Overfull \hbox (6.0pt too wide) in paragraph at lines 600--600
 [][][][][][][] 
  []
 
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 597--597
+Overfull \hbox (6.0pt too wide) in paragraph at lines 600--600
 [][][][][][][] 
  []
 
@@ -2152,18 +2373,23 @@ pdfTeX warning (ext4): destination with the same identifier (name{}) has been a
 lready used, duplicate ignored
 <to be read again> 
                    \relax 
-l.617 }
-        [47
+l.620 }
+       
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[47
 
 ]
 \@verb\makeset=\box89
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 622--622
+Overfull \hbox (6.0pt too wide) in paragraph at lines 625--625
 [][][][][][][] 
  []
 
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 622--622
+Overfull \hbox (6.0pt too wide) in paragraph at lines 625--625
 [][][][][][][] 
  []
 
@@ -2171,37 +2397,57 @@ pdfTeX warning (ext4): destination with the same identifier (name{}) has been a
 lready used, duplicate ignored
 <to be read again> 
                    \relax 
-l.645 }
+l.648 }
        
-Overfull \vbox (7.00943pt too high) detected at line 645
+Overfull \vbox (7.00943pt too high) detected at line 648
+ []
+
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
  []
 
 [48
 
-] <Figures/passto.png, id=1459, 1013.7875pt x 496.85625pt>
+] <Figures/passto.png, id=1459, 760.34062pt x 372.64218pt>
 File: Figures/passto.png Graphic file (type png)
 
 <use Figures/passto.png>
-Package pdftex.def Info: Figures/passto.png used on input line 652.
-(pdftex.def)             Requested size: 349.95818pt x 193.47748pt.
+Package pdftex.def Info: Figures/passto.png used on input line 655.
+(pdftex.def)             Requested size: 349.96976pt x 193.47368pt.
 
-Overfull \hbox (7.66287pt too wide) in paragraph at lines 652--652
+Overfull \hbox (7.67445pt too wide) in paragraph at lines 655--655
  [] 
+ []
+
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
  []
 
 [49
 
- <./Figures/passto.png>] (./defesa_mestrado.toc) [50
+ <./Figures/passto.png>] (./defesa_mestrado.toc)
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
-]
-<Figures/resul1.png, id=1523, 1029.8475pt x 489.83pt>
+[50
+
+] <Figures/resul1.png, id=1523, 772.38562pt x 367.3725pt>
 File: Figures/resul1.png Graphic file (type png)
- <use Figures/resul1.png>
-Package pdftex.def Info: Figures/resul1.png used on input line 667.
-(pdftex.def)             Requested size: 349.95496pt x 184.94145pt.
 
-Overfull \hbox (7.65965pt too wide) in paragraph at lines 667--667
+<use Figures/resul1.png>
+Package pdftex.def Info: Figures/resul1.png used on input line 670.
+(pdftex.def)             Requested size: 349.9628pt x 184.94705pt.
+
+Overfull \hbox (7.6675pt too wide) in paragraph at lines 670--670
  [] 
+ []
+
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
  []
 
 [51
@@ -2211,29 +2457,53 @@ Overfull \hbox (7.65965pt too wide) in paragraph at lines 667--667
 File: Figures/resul2.png Graphic file (type png)
 
 <use Figures/resul2.png>
-Package pdftex.def Info: Figures/resul2.png used on input line 674.
+Package pdftex.def Info: Figures/resul2.png used on input line 677.
 (pdftex.def)             Requested size: 349.97365pt x 184.9455pt.
 
-Overfull \hbox (7.67834pt too wide) in paragraph at lines 674--674
+Overfull \hbox (7.67834pt too wide) in paragraph at lines 677--677
  [] 
+ []
+
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
  []
 
 [52
 
- <./Figures/resul2.png>] (./defesa_mestrado.toc) [53
+ <./Figures/resul2.png>] (./defesa_mestrado.toc)
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
 
-] [54
-
-] [55
+[53
 
 ]
-<Figures/thanks.png, id=1664, 365.6862pt x 282.5757pt>
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[54
+
+]
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[55
+
+] <Figures/thanks.png, id=1664, 365.6862pt x 282.5757pt>
 File: Figures/thanks.png Graphic file (type png)
 
 <use Figures/thanks.png>
-Package pdftex.def Info: Figures/thanks.png used on input line 713.
+Package pdftex.def Info: Figures/thanks.png used on input line 716.
 (pdftex.def)             Requested size: 146.27188pt x 113.02826pt.
- [56
+
+Overfull \hbox (14.48161pt too wide) has occurred while \output is active
+ [][]  \OT1/cmss/m/n/6 ([])  
+ []
+
+[56
 
  <./Figures/thanks.png>]
 \tf@nav=\write6
@@ -2245,11 +2515,11 @@ Package pdftex.def Info: Figures/thanks.png used on input line 713.
 \tf@snm=\write8
 \openout8 = `defesa_mestrado.snm'.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 715.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 715.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 718.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 718.
  (./defesa_mestrado.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 715.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 715.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 718.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 718.
 Package rerunfilecheck Info: File `defesa_mestrado.out' has not changed.
 (rerunfilecheck)             Checksum: 67C66768FCA630697BD246D437DF2061;473.
 
@@ -2260,12 +2530,12 @@ LaTeX Font Warning: Size substitutions with differences
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 715.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 718.
  ) 
 Here is how much of TeX's memory you used:
  26937 strings out of 493029
  514419 string characters out of 6136234
- 1015585 words of memory out of 5000000
+ 1005606 words of memory out of 5000000
  29708 multiletter control sequences out of 15000+600000
  25474 words of font info for 89 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -2282,7 +2552,7 @@ onts/cm/cmssbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
 /cm/cmssi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/c
 mssi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on defesa_mestrado.pdf (56 pages, 5841141 bytes).
+Output written on defesa_mestrado.pdf (56 pages, 6069658 bytes).
 PDF statistics:
  1761 PDF objects out of 2073 (max. 8388607)
  1599 compressed objects within 16 object streams

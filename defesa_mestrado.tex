@@ -82,7 +82,7 @@
 \usepackage[english]{babel}
 %\usepackage[latin1]{inputenc}
 \title[Master Defense]{\textbf{Support for Parallel Scan in OpenMP}}
-\author{\textbf{Eder M. G. Zegarra}}
+\author{\textbf{Eder Maicol Gomez Zegarra}}
 \institute[LSC-IC/UNICAMP] 
 {
 \textit{maicol.zegarra@students.ic.unicamp.br}\\
@@ -96,7 +96,7 @@ Institute of Computing\\
    \includegraphics[scale=0.1]{ic.png}
 }
 
-\date{24 de abril de 2017} 
+\date{24 April 2018} 
 \begin{document}
 
 %*******************Contents*******************
@@ -347,11 +347,11 @@ void scan(int *x,int *y,int n) {
 	today (Mark Harris).\\
 	Main steps:
 	\begin{itemize}
-		\item Send information from \textcolor{blue}{omp declare target section} (new variables types and overcharged of operators);
-		\item The algorithm obtains the pieces of information of the \textcolor{blue}{omp scan clause} (variable type, operator, size of vector);
+		\item Send information from \textcolor{blue}{omp declare target section} (new variables types and operator overload);
+		\item The algorithm obtains the pieces of information of the \textcolor{blue}{omp scan clause} (variable type, operator, vector size);
 		\item Compute the number of blocks and threads per block to use (Scan algorithm just work for $2^{k}$ vector sizes);
 		\item Generate code for the runtime library to call
-		the OpenCL driver to compile the kernels and then dispatch for execution.
+		the OpenCL driver to compile the kernels and dispatch them for execution.
 	\end{itemize}	
 }
 
@@ -375,10 +375,10 @@ void scan(int *x,int *y,int n) {
 \defverbatim[colored]\makeset{
 \belowcaptionskip=-10pt
 \begin{lstlisting}[language=C++,label=template,keywordstyle=\color{blue},basicstyle = \ttfamily\small,caption=Template's Structure]
-#pragma OPENCL EXTENSION cl_khr_fp64 : enable //Header
-
 //OMP_DECLARE_TARGET REGION
+//END OMP_DECLARE_TARGET
 #define Neutral I //Neutral value
+
 __kernel void kernel_0 (datatype *input,\
 	datatype *S, int n){
   //Performs (1) and (2)
@@ -536,7 +536,7 @@ int main(){
   for(i = 1 ; i < N ; i++)
     gtScan[i] = gtScan[i-1] + gt[i-1];
 
-  Rearrange the elements from A, <@\textcolor{black}{using}@> lt, gt, ltScan <@\textcolor{black}{and}@> gtScan
+  Rearrange the elements from A, <@\textcolor{black}{using}@> lt, gt, ltScan <@\textcolor{black}{and}@> gtScan //In parallel
 }
 \end{lstlisting}
 }
@@ -555,8 +555,11 @@ int main(){
 
 __kernel void kernel_0 (__global int *input,\
                         __global int *S, const int n)
+                        
 __kernel void kernel_1 ( ... )
+
 __kernel void kernel_2 ( ... )
+
 \end{lstlisting}
 }
 
@@ -620,7 +623,6 @@ int main ( ) {
 \belowcaptionskip=-10pt
 
 \begin{lstlisting}[language=C++,label=Fibo3,keywordstyle=\color{blue},basicstyle = \ttfamily\small,breaklines=true,caption=Fibonacci Template Generated]
-#pragma OPENCL EXTENSION cl_khr_fp64 : enable
 struct Matrix {
   long x00, x01, x10, x11;
 };
@@ -633,6 +635,7 @@ Matrix *(Matrix A, Matrix C) {
   return X;
 }
 #define Neutral (Matrix){ 1, 0, 0, 1 }
+
 __kernel void kernel_0 (__global Matrix *input,__global Matrix *S, const int n) 
 __kernel void kernel_1 ( ... )
 __kernel void kernel_2 ( ... )
