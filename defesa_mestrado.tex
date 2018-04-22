@@ -82,7 +82,7 @@
 \usepackage[english]{babel}
 %\usepackage[latin1]{inputenc}
 \title[Master Defense]{\textbf{Support for Parallel Scan in OpenMP}}
-\author{\textbf{Eder Maicol Gomez Zegarra}}
+\author{\textbf{E. Maicol G. Zegarra}}
 \institute[LSC-IC/UNICAMP] 
 {
 \textit{maicol.zegarra@students.ic.unicamp.br}\\
@@ -116,11 +116,19 @@ Institute of Computing\\
 \end{frame}
 
 \frame{
+	\frametitle{\textbf{Parallel Quicksort Algorithm}}
+	\begin{figure}[]
+		\includegraphics[width=9cm,height=3.5cm]{Figures/quicksort.png}
+	\end{figure}
+	How can we do this in parallel?
+}
+
+\frame{
 \frametitle{\textbf{Prefix Sums Problem}}
 
 In computer science, the prefix sum, cumulative sum,\\inclusive scan or simply scan is defined as:\\
 \begin{itemize}
-	\item Given a binary associative operator $\oplus$;
+	\item Given a \textbf{binary associative operator} $\oplus$;
 	\item An ordered set of $n$ elements [$a_{0}$, $a_{1}$, ... , $a_{n-1}$];
 	\item Return the ordered set [$a_{0}$, $a_{0}$ $\oplus$ $a_{1}$, ... , $a_{0}$ $\oplus$ $a_{1}$ $\oplus$ ... $\oplus$ $a_{n-1}$].
 \end{itemize}
@@ -156,7 +164,7 @@ There are two versions of Prefix Scan: inclusive and exclusive. \\
 	Based in Hillis and Steele Work (1986).
 	\begin{figure}[]
 		\includegraphics[width=10cm,height=5.0cm]{Figures/naivescan.png}
-		\caption{An Illustration of the algorithm proposed by Horn}
+		\caption{An ilustration of the algorithm proposed by Horn}
 	\end{figure} 	
 }
 
@@ -176,61 +184,61 @@ Based in Blelloch's Work (1990);\\
 Two phases (Up-Sweep $\&$ Down-Sweep):
 \begin{figure}[]
 	\includegraphics[width=10cm,height=5.0cm]{Figures/example_up.png}
-	\caption{An Illustration of the \textbf{Up-Sweep} phase}
+	\caption{An illustration of the \textbf{Up-Sweep} phase}
 \end{figure}
 }
 
 \frame{
-	\frametitle{\textbf{An Illustration of the Up-Sweep phase}}
+	\frametitle{\textbf{An illustration of the Up-Sweep phase}}
 	\begin{figure}[]
 		\includegraphics[width=10cm,height=5.0cm]{Figures/up1.png}
 	\end{figure} 
 }
 
 \frame{
-	\frametitle{\textbf{An Illustration of the Up-Sweep phase}}
+	\frametitle{\textbf{An illustration of the Up-Sweep phase}}
 	\begin{figure}[]
 		\includegraphics[width=10cm,height=5.0cm]{Figures/up2.png}
 	\end{figure} 
 }
 
 \frame{
-	\frametitle{\textbf{An Illustration of the Up-Sweep phase}}
+	\frametitle{\textbf{An illustration of the Up-Sweep phase}}
 	\begin{figure}[]
 		\includegraphics[width=10cm,height=5.0cm]{Figures/up3.png}
 	\end{figure} 
 }
 
 \frame{
-	\frametitle{\textbf{An Illustration of the Down-Sweep phase}}
+	\frametitle{\textbf{An illustration of the Down-Sweep phase}}
 	\begin{figure}[]
 		\includegraphics[width=10cm,height=5.0cm]{Figures/down.png}
 	\end{figure}
 }
 
 \frame{
-	\frametitle{\textbf{An Illustration of the Down-Sweep phase}}
+	\frametitle{\textbf{An illustration of the Down-Sweep phase}}
 	\begin{figure}[]
 		\includegraphics[width=10cm,height=5.0cm]{Figures/down1.png}
 	\end{figure}
 }
 
 \frame{
-	\frametitle{\textbf{An Illustration of the Down-Sweep phase}}
+	\frametitle{\textbf{An illustration of the Down-Sweep phase}}
 	\begin{figure}[]
 		\includegraphics[width=10cm,height=5.0cm]{Figures/down3.png}
 	\end{figure}
 }
 
 \frame{
-	\frametitle{\textbf{An Illustration of the Down-Sweep phase}}
+	\frametitle{\textbf{An illustration of the Down-Sweep phase}}
 	\begin{figure}[]
 		\includegraphics[width=10cm,height=5.0cm]{Figures/down4.png}
 	\end{figure}
 }
 
 \frame{
-	\frametitle{\textbf{An Illustration of the Down-Sweep phase}}
+	\frametitle{\textbf{An illustration of the Down-Sweep phase}}
 	\begin{figure}[]
 		\includegraphics[width=10cm,height=5.0cm]{Figures/down5.png}
 	\end{figure}
@@ -347,11 +355,11 @@ void scan(int *x,int *y,int n) {
 	today (Mark Harris).\\
 	Main steps:
 	\begin{itemize}
-		\item Send information from \textcolor{blue}{omp declare target section} (new variables types and operator overload);
 		\item The algorithm obtains the pieces of information of the \textcolor{blue}{omp scan clause} (variable type, operator, vector size);
 		\item Compute the number of blocks and threads per block to use (Scan algorithm just work for $2^{k}$ vector sizes);
 		\item Generate code for the runtime library to call
-		the OpenCL driver to compile the kernels and dispatch them for execution.
+		the OpenCL driver to compile the kernels and dispatch them for execution;
+		\item Send information from \textcolor{blue}{omp declare target section} (new variables types and operator overload).
 	\end{itemize}	
 }
 
@@ -388,8 +396,8 @@ __kernel void kernel_1(dataType *input, int n){
   //Performs (3)
 }
 
-__kernel void kernel_2(_dataType *input,\
-	 dataType *output){
+__kernel void kernel_2(dataType *input,\
+	 dataType *output, dataType *S){
   //Performs (4)
 }
 
@@ -430,7 +438,7 @@ int main(){
   ...
 }
 
-__kernel void kernel_2(_dataType *input)
+__kernel void kernel_2(dataType *input, dataType *S)
 
 \end{lstlisting}
 }
@@ -549,8 +557,6 @@ int main(){
 \defverbatim[colored]\makeset{
 \belowcaptionskip=-10pt
 \begin{lstlisting}[language=C++,label=Fibo3,keywordstyle=\color{blue},basicstyle = \ttfamily\small,breaklines=true,caption=Array Filter Template Generated]
-#pragma OPENCL EXTENSION cl_khr_fp64 : enable
-
 #define Neutral 0
 
 __kernel void kernel_0 (__global int *input,\
@@ -582,14 +588,87 @@ __kernel void kernel_2 ( ... )
 	\end{itemize}	
 }
 
+\defverbatim[colored]\makeset{
+	\belowcaptionskip=-10pt
+	\begin{lstlisting}[language=C++,label=Fibo2,keywordstyle=\color{blue},basicstyle = \ttfamily\tiny,breaklines=true,caption=Fibonacci Implementation]
+<@\textcolor{blue}{\#pragma omp declare target}@>
+struct Matrix{
+	long x00. x01, x10, x11;
+	//Default constructor
+	Matrix(){
+		x00 = 1; x01 = 1;
+		x10 = 1; x11 = 1;
+	}
+};
+
+Matrix Operator *(Matrix A, Matrix C){
+	return A*C;
+}
+	
+<@\textcolor{blue}{\#pragma omp declare target}@>
+	\end{lstlisting}
+}
+
 \frame{
 	\frametitle{\textbf{A realistic Example: Fibonacci Series}}
 	\begin{columns}
-		\column{0.6\textwidth}
-		\centering{ \includegraphics[width=7cm,height=5.5cm]{Figures/fibo.png} }
-		\column{0.4\textwidth}
-		\begin{figure}[]
-			\includegraphics[width=5cm,height=4cm]{Figures/struct.png}
+		\footnotesize
+		\column{0.60\textwidth}
+		%\centering{ \includegraphics[width=4cm,height=3.5cm]{Figures/fibo.png} }
+		\hspace*{0.5cm} Let
+		\begin{align*}
+		A = 
+		\begin{bmatrix}
+		1 & 1\\
+		1 & 0
+		\end{bmatrix}
+		\end{align*}
+		\hspace*{0.5cm} And the Fibonnacci numbers, defined by\\
+		\centering $F_{0}$ = 0\\
+		\centering $F_{1}$ = 1\\
+		\centering $F_{n+1}$ = $F_{n}$ + $F_{n-1}$\\
+		\justify \hspace*{0.5cm} Then by induction
+		\begin{align*}
+		A^{1} = 
+		\begin{bmatrix}
+		1 & 1\\
+		1 & 0
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+		F_{2} & F_{1}\\
+		F_{1} & F_{0}
+		\end{bmatrix}
+		\end{align*}
+		\hspace*{0.5cm} And if for $n$ the formula is true, then:
+		\begin{align*}
+		A^{n+1} = A.A^{n} = 
+		\begin{bmatrix}
+		1 & 1\\
+		1 & 0
+		\end{bmatrix}
+		\begin{bmatrix}
+		F_{n+1} & F_{n}\\
+		F_{n} & F_{n-1}
+		\end{bmatrix}
+		\end{align*}
+		\begin{align*}
+		A^{n+1} =
+		\begin{bmatrix}
+		F_{n+1} + F_{n} & F_{n} + F_{n-1}\\
+		F_{n+1} & F_{n}
+		\end{bmatrix}
+		=
+		\begin{bmatrix}
+		F_{n+2} & F_{n+1}\\
+		F_{n+1} & F_{n}
+		\end{bmatrix}
+		\end{align*}
+				
+		\column{0.40\textwidth}		
+		\begin{figure}[h]
+			\includegraphics[width=5cm,height=4.5cm]{Figures/declare_target.png}
+			%\makeset
 		\end{figure}
 	\end{columns}
 	
@@ -702,7 +781,7 @@ __kernel void kernel_2 ( ... )
 		\item Implement a template of scan algorithm for NVIDIA;
 		\item Extend the limits of scan;
 		\item Implement a template of reduction algorithm for AClang compiler;
-		\item Improve  the performance of the scan clause by
+		\item Improve the scan clause the performance by
 		providing specific routines to handle scan operations
 		into the AClang  runtime  library.
 	\end{itemize}
@@ -713,6 +792,7 @@ __kernel void kernel_2 ( ... )
 	\begin{figure}[!htbp]
 		\includegraphics[scale=0.4]{Figures/thanks.png}
 	\end{figure} 
+	\hspace*{9.0cm} \includegraphics[scale=0.2]{Figures/capes.png} 
 }
 
 \end{document} \grid
