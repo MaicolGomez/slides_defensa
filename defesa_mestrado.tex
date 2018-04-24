@@ -311,7 +311,7 @@ Two phases (Up-Sweep $\&$ Down-Sweep):
 	\frametitle{\textbf{AClang Compiler Pipeline}}
 	
 	\begin{figure}[]
-		\includegraphics[width=12.35cm,height=6.8cm]{Figures/pipelineAClang.png}
+		\includegraphics[width=12.30cm,height=6.7cm]{Figures/pipelineAClang.png}
 	\end{figure}
 }
 
@@ -328,7 +328,7 @@ void scan(int *x,int *y,int n) {
 void scan(int *x,int *y,int n) {
   y[0] = 0;
   <@\textcolor{blue}{\#pragma omp target device}@> (<@\textcolor{red}{device}@>)\
-             map(to:y[:N]) map(from:x[:N])
+             map(to:x[:N]) map(from:y[:N])
   <@\textcolor{blue}{\#pragma omp parallel for}@> <@\textcolor{red}{scan}@> (+:y)
   for(i = 1; i < n; i++)
     y[i] = y[i-1] + x[i-1];
@@ -488,7 +488,7 @@ __kernel void kernel_2(dataType *input, dataType *S)
 \frame{
 	\frametitle{\textbf{Example: Array Filter}}
 	\textbf{Input}: An array A[$l$:$r$] of integers elements, and an element \textbf{x} from A[$l$:$r$].
-	\textbf{Output}: Rearrange the elements of A[$l$:$r$], such that for some index $k$ $\in$ [$l$,$r$], all elements in A[$l$:$k$] are smaller or equal than \textbf{x} and all elements in A[$k + 1$:$r$] are larger than \textbf{x}.
+	\textbf{Output}: Rearrange the elements of A[$l$:$r$], such that for some index $k$ $\in$ [$l$,$r$], all elements in A[$l$:$k-1$] are smaller than \textbf{x} and all elements in A[$k + 1$:$r$] are larger than \textbf{x}.
 	\begin{figure}[]
 		\includegraphics[width=8cm,height=2.5cm]{Figures/filter.png}
 	\end{figure}
@@ -532,13 +532,13 @@ int main(){
   compute(lt, x, lower_equal); //In parallel
   compute(gt, x, greater);     //In parallel
 
-  <@\textcolor{blue}{\#pragma omp target device}@> (<@\textcolor{red}{GPU}@>) map(to:ltScan[:N]) map(from:lt[:N])
+  <@\textcolor{blue}{\#pragma omp target device}@> (<@\textcolor{red}{GPU}@>) map(to:lt[:N]) map(from:ltScan[:N])
   ltScan[0] = 0;
   <@\textcolor{blue}{\#pragma omp parallel for}@> <@\textcolor{red}{scan}@>(+:ltScan)
   for(i = 1 ; i < N ; i++)
     ltScan[i] = ltScan[i-1] + lt[i-1];
 
-  <@\textcolor{blue}{\#pragma omp target device}@> (<@\textcolor{red}{GPU}@>) map(to:gtScan[:N]) map(from:gt[:N])
+  <@\textcolor{blue}{\#pragma omp target device}@> (<@\textcolor{red}{GPU}@>) map(to:gt[:N]) map(from:gtScan[:N])
   gtScan[0] = 0;
   <@\textcolor{blue}{\#pragma omp parallel for}@> <@\textcolor{red}{scan}@>(+:gtScan)
   for(i = 1 ; i < N ; i++)
@@ -682,7 +682,7 @@ int main ( ) {
   Matrix *y = new Matrix[N];
   ...
   <@\textcolor{blue}{\#pragma omp target device}@> (<@\textcolor{red}{GPU}@>) \
-            map (to: y[:N])  map (from: x[:N])
+            map (to: x[:N])  map (from: y[:N])
   y[0] = Identity_Matrix;
   <@\textcolor{blue}{\#pragma omp parallel for}@> <@\textcolor{red}{scan}@>(*:y)
   for (i = 1; i < N; i++)
